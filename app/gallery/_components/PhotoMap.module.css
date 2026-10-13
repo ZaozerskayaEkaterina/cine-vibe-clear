@@ -1,0 +1,30 @@
+.section {
+  margin-top: clamp(2rem, 6vw, 3rem);
+}
+
+.canvas {
+  width: 100%;
+  height: clamp(18rem, 58vh, 32rem);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: clamp(0.75rem, 2vw, 1rem);
+  background: #1a0505;
+  margin-top: 1rem;
+}
+
+.status {
+  padding: 0.75rem 0.9rem;
+  border-left: 0.25rem solid var(--accent-dim);
+  background: var(--bg-soft);
+  color: var(--accent-dim);
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 30rem) {
+  .canvas {
+    height: min(65dvh, 24rem);
+    border-radius: 0.6rem;
+  }
+}

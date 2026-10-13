@@ -1,0 +1,181 @@
+/* ====================== Сетка ====================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+/* ====================== Карточка (десктоп) ====================== */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  min-height: 22rem;
+  padding: 1.25rem;
+  border: none;
+  border-radius: 1rem;
+  background: #2a0808;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  font-family: inherit;
+  font-size: inherit;
+  min-width: 0;
+  isolation: isolate;
+}
+
+.card:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* ====================== Картинка ====================== */
+.imageWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+  filter: brightness(0.25) saturate(0.9);
+  transition: transform 0.6s ease, filter 0.4s ease;
+}
+
+/* ====================== Текст ====================== */
+.title,
+.meta,
+.summary {
+  position: relative;
+  z-index: 2;
+}
+
+.title {
+  margin: 0 0 auto;
+  font-family: var(--font-castileo), Arial, sans-serif;
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  line-height: 1.15;
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  margin: 0;
+  color: var(--accent-dim);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.summary {
+  margin: 0;
+  max-width: 34ch;
+  color: #cfc7c7;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+/* ====================== Hover / focus ====================== */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  }
+  .card:hover .image {
+    transform: scale(1.05);
+    filter: brightness(0.65) saturate(1);
+  }
+}
+
+/* ====================== Подпись под сеткой ====================== */
+.demoNote {
+  margin: 1.25rem 0 2rem;
+  color: var(--accent-dim);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+/* ====================== Мобильный режим ======================
+   Узкая горизонтальная карточка: слева текст, справа картинка,
+   которая плавно перетекает в фон.
+   ============================================================= */
+@media (max-width: 40rem) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .card {
+    /* обычный поток, без grid */
+    display: block;
+    min-height: 9rem;
+    padding: 1rem 40% 1rem 1rem; /* справа оставляем место под картинку */
+    border-radius: 0.85rem;
+  }
+
+  /* Картинка absolute — тянется по всей высоте карточки */
+  .imageWrap {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    width: 55%;
+    margin: 0;
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  .imageWrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      #2a0808 0%,
+      rgba(42, 8, 8, 0.9) 15%,
+      rgba(42, 8, 8, 0.55) 40%,
+      rgba(42, 8, 8, 0.15) 75%,
+      rgba(42, 8, 8, 0) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+  }
+
+    .title,
+    .meta,
+    .summary {
+    position: relative;
+    z-index: 2;
+    display: block;
+    }
+
+    .title {
+    font-size: 1.15rem;
+    padding-left: 0;
+    margin: 0 0 0.35rem;
+    }
+
+    .meta {
+    font-size: 0.8rem;
+    padding-left: 0;
+    margin: 0 0 0.6rem;
+    }
+
+    .summary {
+    font-size: 0.85rem;
+    padding-left: 0;
+    max-width: none;
+    margin: 0;
+    }
+
+    .image {
+    filter: brightness(0.85) saturate(1.05);
+    }
+}
